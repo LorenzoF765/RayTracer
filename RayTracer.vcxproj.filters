@@ -13,34 +13,31 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\Renderer">
-      <UniqueIdentifier>{f9bf8197-2328-4e96-95b2-6f1cca1ae41e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Math">
       <UniqueIdentifier>{000aa49f-3eb8-4790-88f2-4857d7989d50}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Renderer">
       <UniqueIdentifier>{f76c4fd1-d830-4f82-ac1b-9f827a024efc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Objects">
-      <UniqueIdentifier>{e9ad935c-a536-4d00-b7cd-787ddf78cecd}</UniqueIdentifier>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{712f08bc-49ac-4725-baa0-6a9eaa42a31d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer\Canvas.cpp">
       <Filter>Source Files\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\RayTracer.cpp">
-      <Filter>Source Files\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Math\MathUtils.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Resource Files\Renderer\Renderer.cpp">
-      <Filter>Resource Files\Renderer</Filter>
+    <ClCompile Include="Renderer\Renderer.cpp">
+      <Filter>Source Files\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Resource Files\Object\Sphere.cpp">
-      <Filter>Resource Files\Objects</Filter>
+    <ClCompile Include="Object\Sphere.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\RayTracer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,17 +53,17 @@
     <ClInclude Include="Math\Ray.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Resource Files\Renderer\Material.h">
-      <Filter>Resource Files\Renderer</Filter>
+    <ClInclude Include="Renderer\Material.h">
+      <Filter>Source Files\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Resource Files\Renderer\Renderer.h">
-      <Filter>Resource Files\Renderer</Filter>
+    <ClInclude Include="Renderer\Renderer.h">
+      <Filter>Source Files\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Resource Files\Object\Object.h">
-      <Filter>Resource Files\Objects</Filter>
+    <ClInclude Include="Object\Sphere.h">
+      <Filter>Source Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Resource Files\Object\Sphere.h">
-      <Filter>Resource Files\Objects</Filter>
+    <ClInclude Include="Object\Object.h">
+      <Filter>Source Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
