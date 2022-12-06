@@ -1,8 +1,9 @@
 #pragma once
 #include<SDL.h>
-#include "Canvas.h"
-#include "Ray.h"
-#include "Object.h"
+#include "../Math/Ray.h"
+#include "../Math/Color.h"
+#include "../Object/Object.h"
+#include "../Renderer/Canvas.h"
 class Renderer{ 
 public:
 	Renderer() = default; 

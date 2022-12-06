@@ -1,6 +1,6 @@
 #pragma once
-#include "Ray.h" 
-#include "Material.h" 
+#include "../Math/Ray.h" 
+#include "../Renderer/Material.h" 
 #include <memory> 
 
 

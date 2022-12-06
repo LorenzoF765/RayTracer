@@ -1,7 +1,7 @@
 #include <glm/geometric.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include "Sphere.h"
-#include "Ray.h"
+#include "../Math/Ray.h"
 
 bool Sphere::Hit(const Ray& r, float tMin, float tMax, RaycastHit& hit)
 {

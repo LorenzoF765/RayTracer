@@ -1,5 +1,6 @@
 #include"Renderer.h"
-#include"Sphere.h"
+#include "../Object/Sphere.h"
+#include "glm/glm.hpp"
 #include<iostream>
 
 

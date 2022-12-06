@@ -1,6 +1,6 @@
 #pragma once
-#include "Color.h"
-#include "Ray.h"
+#include "../Math/Color.h"
+#include "../Math/Ray.h"
 
 class Material
 {
