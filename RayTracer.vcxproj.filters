@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Renderer">
       <UniqueIdentifier>{f76c4fd1-d830-4f82-ac1b-9f827a024efc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Objects">
+      <UniqueIdentifier>{e9ad935c-a536-4d00-b7cd-787ddf78cecd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="Canvas.cpp">
       <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Resource Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +58,15 @@
     </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Resource Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Resource Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Resource Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

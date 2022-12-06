@@ -2,6 +2,7 @@
 #include<SDL.h>
 #include "Canvas.h"
 #include "Ray.h"
+#include "Object.h"
 class Renderer{ 
 public:
 	Renderer() = default; 
@@ -14,7 +15,7 @@ public:
 
 	friend class Canvas;
 
-	void Render(Canvas& canvas);
+	void Render(Canvas& canvas, Object* object);
 
 private:
 	color3 GetBackgroundFromRay(const Ray& ray);
