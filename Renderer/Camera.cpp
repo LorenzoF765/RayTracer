@@ -23,6 +23,7 @@ void Camera::LookAt(const glm::vec3& eye, const glm::vec3& target, const glm::ve
 
 	CalculateViewPlane();
 }
+
 void Camera::CalculateViewPlane()
 {
 	// convert fov angle to radians 
@@ -41,6 +42,7 @@ void Camera::CalculateViewPlane()
 	// calculate lower left location of the view plane 
 	m_lowerLeft = m_eye - (m_horizontal * 0.5f) - (m_vertical * 0.5f) - m_forward;
 }
+
 Ray Camera::PointToRay(const glm::vec2& point) const
 {
 	Ray ray;

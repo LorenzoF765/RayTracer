@@ -2,10 +2,10 @@
 #include "Canvas.h"
 #include "../Math/Ray.h"
 #include<SDL.h>
-#include "Camera.h"
 
 class Object;
 class Scene;
+class Camera;
 
 class Renderer
 {
@@ -15,7 +15,7 @@ public:
 	void Shutdown();
 	bool CreateWindow(int width, int height);
 
-	void Render(Canvas& canvas, Scene& object, Camera& camera);
+	void Render(Canvas& canvas, Scene& scene, Camera& camera, int samples = 5);
 
 	void CopyCanvas(const Canvas& canvas);
 	void Present();

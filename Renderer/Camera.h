@@ -1,3 +1,4 @@
+#pragma once
 #include "../Math/MathUtils.h" 
 #include "../Math/Ray.h" 
 
@@ -6,8 +7,7 @@ class Camera
 public:
 	Camera(const glm::vec3& eye, const glm::vec3& target, const glm::vec3& up, float fov, float aspectRation);
 
-	void LookAt(const glm::vec3& eye, const glm::vec3& target, const glm::vec3& up
-	);
+	void LookAt(const glm::vec3& eye, const glm::vec3& target, const glm::vec3& up);
 	Ray PointToRay(const glm::vec2& point) const;
 
 private:
@@ -30,4 +30,4 @@ private:
 
 	float m_fov{ 0 }; // field of view (angle in degrees of view) 
 	float m_aspectRatio{ 0 }; // screen width / screen height (800 / 600 = 1.333) 
-}; 
+};
