@@ -1,54 +1,69 @@
-#include"Renderer.h"
-#include "../Object/Sphere.h"
-#include "glm/glm.hpp"
-#include<iostream>
+#include <iostream>
+#include "../Renderer/Renderer.h"
+#include "../Renderer/Canvas.h"
+#include "../Objects/Sphere.h"
+#include "../Objects/Scene.h"
+
+int main(int, char**)
+{
+    std::cout << "Hello World!\n";
+
+    Renderer renderer;
+
+    renderer.Initialize();
+    renderer.CreateWindow(1000, 500);
+
+    Canvas canvas(1000, 500, renderer);
+    Camera camera({ 0, 1, 2 }, { 0, 0, 0 }, { 0, 1, 0 }, 70.0f, 600 / (float)300);
+    Scene scene;
+
+    scene.AddObject(std::make_unique<Sphere>(glm::vec3{ 0, 0, -1 }, 0.5f, std::make_unique<Lambertian>(color3{ 0, 1, 0 })));
+    scene.AddObject(std::make_unique<Sphere>(glm::vec3{ 0, -100.5, -1 }, 100.0f, std::make_unique<Lambertian>(color3{ 0.2f, 0.2f, 0.2f })));
+
+    bool quit = false;
+    while (!quit)
+    {
+        SDL_Event event;
+        SDL_PollEvent(&event);
+        switch (event.type)
+        {
+        case SDL_QUIT:
+        {
+
+            quit = true;
+            break;
+        }
+
+        case SDL_KEYDOWN:
+        {
+            switch (event.key.keysym.sym)
+            {
+            case SDLK_ESCAPE:
+                quit = true;
+                break;
+            }
+            break;
+        }
+        }
 
 
-int main(int,char**){
-	Renderer renderer;
-	renderer.Initialize();
-	renderer.CreateWindow(800,400);
+        // For Static Use This Code
+        canvas.Clear({ 0, 0, 0, 1 });
 
-	Canvas canvas(800, 400, renderer);
-	auto sphere = std::make_unique<Sphere>(glm::vec3{ 0, 0, 1 }, 0.5f, nullptr);
+        //for (int i = 0; i < 1000; i++)
+        //{
+        //    canvas.DrawPoint({ random(0, 1000), random(0, 600)}, {1, 1, 1, 1});
+        //}
 
+        renderer.Render(canvas, scene, camera);
 
-	bool quit=false;
-	while(!quit)
-	{
-		SDL_Event event;
-		SDL_PollEvent(&event);
-		switch(event.type)
-		{
-		case SDL_QUIT:
-			quit=true;
-			break;
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym)
-			{
-			case SDLK_ESCAPE:
-				quit = true;
-				break;
-			}
-			break;
-		}
-		//canvas.Clear({ 0, 0, 0, 1 });
-		renderer.Render(canvas, sphere.get());
-		//canvas.Update();
-		
-		
-		//for (int i = 0; i < 26746; i++) {
+        canvas.Update();
 
-		//	canvas.DrawPoint({ random(0, 420), random(0, 690) }, { 1, 1, 1, 1 });
-		//	canvas.DrawPoint({ random(0, 420), random(0, 690) }, { 0, 0, 1, 1 });
-		//	canvas.DrawPoint({ random(0, 420), random(0, 690) }, { 1, 0, 0, 1 });
-		//	canvas.DrawPoint({ random(0, 420), random(0, 690) }, { 0, 1, 0, 1 });
-		//}
-		canvas.Update();
+        renderer.CopyCanvas(canvas);
 
-		renderer.CopyCanvas(canvas);
-		renderer.Present();
-	}
-	renderer.Shutdown();
-	return 0;
+        renderer.Present();
+    }
+
+    renderer.Shutdown();
+    return 0;
 }

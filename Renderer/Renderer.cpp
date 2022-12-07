@@ -1,29 +1,41 @@
 #include"Renderer.h"
+#include "../Objects/Scene.h"
 #include<iostream>
-#include <SDL.h>
 
-bool Renderer::Initialize() 
+bool Renderer::Initialize()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
-		std::cout << "SDLError:" << SDL_GetError() << std::endl; return false; 
-	}return true; 
-}
-void Renderer::Shutdown() 
-{ 
-	if (m_window)SDL_DestroyWindow(m_window); if (m_renderer)SDL_DestroyRenderer(m_renderer); SDL_Quit(); 
-}
-bool Renderer::CreateWindow(int width, int height) 
-{ 
-	m_window = SDL_CreateWindow("2DRenderer", 100, 100, width, height, SDL_WINDOW_SHOWN); if (m_window == nullptr) 
-	{ std::cout << "SDLError:" << SDL_GetError() << std::endl; SDL_Quit(); return false;
-	}m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC); if (m_renderer == nullptr) { std::cout << "SDLError:" << SDL_GetError() << std::endl; return false; 
-	
+		std::cout << "SDLError:" << SDL_GetError() << std::endl;
+		return false;
 	}
-	return true; 
+	return true;
+}
+void Renderer::Shutdown()
+{
+	if (m_window)SDL_DestroyWindow(m_window);
+	if (m_renderer)SDL_DestroyRenderer(m_renderer);
+	SDL_Quit();
+}
+bool Renderer::CreateWindow(int width, int height)
+{
+	m_window = SDL_CreateWindow("Ray-Tracer", 100, 100, width, height, SDL_WINDOW_SHOWN);
+	if (m_window == nullptr)
+	{
+		std::cout << "SDLError:" << SDL_GetError() << std::endl; SDL_Quit();
+		return false;
+	}
+	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (m_renderer == nullptr)
+	{
+		std::cout << "SDLError:" << SDL_GetError() << std::endl;
+		return false;
+	}
+	return true;
 }
 
-void Renderer::CopyCanvas(const Canvas& canvas) {
+void Renderer::CopyCanvas(const Canvas& canvas)
+{
 	SDL_RenderCopy(m_renderer, canvas.m_texture, nullptr, nullptr);
 }
 
@@ -32,8 +44,9 @@ void Renderer::Present()
 	SDL_RenderPresent(m_renderer);
 }
 
-void Renderer::Render(Canvas& canvas, Object* object)
+void Renderer::Render(Canvas& canvas, Scene& scene, Camera& camera)
 {
+	// camera / viewport 
 	glm::vec3 lowerLeft{ -2, -1, -1 };
 	glm::vec3 eye{ 0, 0, 0 };
 	glm::vec3 right{ 4, 0, 0 };
@@ -43,35 +56,38 @@ void Renderer::Render(Canvas& canvas, Object* object)
 	{
 		for (int x = 0; x < canvas.GetWidth(); x++)
 		{
-			float u = x / (float)canvas.GetWidth();
-			float v = 1 - (y / (float)canvas.GetHeight());
-
-			glm::vec3 direction = lowerLeft + (u * right) + (v * up);
-			Ray ray{ eye, direction };
+			// get normalized(0 - 1) u, v coordinates for x and y
 
 
-			RaycastHit raycastHit; 
-color3 color; 
-if (object->Hit(ray, 0.01f, 100.0f, raycastHit))
-{
-	color = { 1, 0, 0 };
-} 
-else 
-{ 
- // get gradient background color from ray 
- color = GetBackgroundFromRay(ray);
-} 
-canvas.DrawPoint({ x, y }, color4(color, 1)); 
+			// get normalized (0 - 1) u, v coordinates from screnn x and y 
+
+			glm::vec2 point = glm::vec2{ x, y } / glm::vec2{ canvas.m_width, canvas.m_height };
+			// flip y 
+			point.y = 1.0f - point.y;
+
+			// create ray from camera 
+			Ray ray = camera.PointToRay(point);
+
+			// cast ray into scene, get color 
+			RaycastHit raycastHit;
+			color3 color = scene.Trace(ray, 0.001f, 1000.0f, raycastHit, 5);
+			canvas.DrawPoint({ x, y }, color4(color, 1));
+
+			// create ray 
+			
+			
 
 			
 			
+			canvas.DrawPoint({ x, y }, color4(color, 1));
 		}
 	}
 }
+
 color3 Renderer::GetBackgroundFromRay(const Ray& ray)
 {
 	glm::vec3 direction = glm::normalize(ray.direction);
 	float t = 0.5f * (direction.y + 1.0f);
 
-	return interp(color3{ 1.0f }, color3{ 0.5f, 0.7f, 1.0f }, t);
+	return interp(color3{1.0f}, color3{0.5f, 0.7f, 1.0f}, t);
 }
