@@ -81,5 +81,5 @@ color3 Renderer::GetBackgroundFromRay(const Ray& ray)
 	glm::vec3 direction = glm::normalize(ray.direction);
 	float t = 0.5f * (direction.y + 1.0f);
 
-	return interp(color3{ 1.0f }, color3{ 0.5f, 0.7f, 1.0f }, t);
+	return lerp(color3{ 1.0f }, color3{ 0.5f, 0.7f, 1.0f }, t);
 }
